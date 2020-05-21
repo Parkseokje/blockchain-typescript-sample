@@ -76,6 +76,37 @@ $ tsc --init
   - Any update saved, it will rebuild the files from `src/` and will export the results to the `dist/` folder.
   - If successful, `dist/index.js` will run. 
 
+## Interface vs Class with typescript
+
+When interface get compiled, it doesn't appear in built file.
+But class does. What's unique about the class is,
+public/private property is not distinguishable in built file.
+It shows warning only at compile time.(For example, when you try to assign a value in a private property when the class is initialized)
+
+```typescript
+// When built it doesn't appear in dist/index.js
+interface Human {
+  name: string;
+  age: number;
+  gender: string;
+}
+```
+
+```typescript
+// When built it appears in dist/index.js
+class Human {
+  public name: string;
+  public age: number;
+  public gender: string;
+
+  constructor(name: string, age: number, gender: string) {
+    this.name = name;
+    this.age = age;
+    this.gender = gender;
+  }
+}
+```
+
 ## Reference Sites/Docs
 
 - [NomadCoder](https://academy.nomadcoders.co/courses/303219/lectures/4975930)
