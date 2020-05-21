@@ -13,7 +13,7 @@ $ yarn init
 ### 2. Install Typescript globally and init typescript project
 
 ```bash
-$ yarn global add typescript
+$ yarn add typescript --dev
 
 # creates a tsconfig.json file
 $ tsc --init
@@ -41,6 +41,40 @@ $ tsc --init
   $ node index.js
   Hello Seokje, you are 40, you are a male
   ```
+
+### 5. Watch mode
+
+  If you want to run compilation as soon as modifying the source code, install `tsc-watch` in dev mode.
+
+  ```bash
+  $ yarn add tsc-watch --dev
+  ```
+
+  And in the package.json, modify start command as follows:
+
+  ```json
+  // AS-IS
+  "start": "node index.ts",
+  "prestart": "tsc"
+
+  // TO-BE
+  "start": "tsc-watch --onSuccess \"node dist/index.js\" "
+  ```
+
+  And modify `tsconfig.json` include path.
+
+  ```json
+  // AS-IS
+  "include": ["index.ts"],
+
+  // TO-BE
+  "include": ["src/**/*"],
+  ```
+
+  All the above describe this:
+  - When you run `yarn start`, it will watch any update from `src/` folder.
+  - Any update saved, it will rebuild the files from `src/` and will export the results to the `dist/` folder.
+  - If successful, `dist/index.js` will run. 
 
 ## Reference Sites/Docs
 
